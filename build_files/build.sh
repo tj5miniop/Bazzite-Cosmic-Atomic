@@ -6,7 +6,7 @@ set -ouex pipefail
 
 # Start by removing KDE plasma Desktop
 echo "BUILD STAGE 1 -- Removing KDE Plasma Desktop..."
-dnf5 -y groupremove "KDE Plasma Desktop"
+dnf5 -y group remove "KDE Plasma Desktop"
 
 echo "BUILD STAGE -- Removing KDE-related packages and dependencies..."
 dnf5 -y remove kf5-* kf6-* plasma-* plasma-login-manager breeze-* --skip-unavailable --allow-erasing
