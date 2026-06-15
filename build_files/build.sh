@@ -21,7 +21,7 @@ dnf5 -y install NetworkManager
 
 # install minimal COSMIC Desktop environment
 echo "BUILD STAGE 3 -- Desktop Configuration..."
-dnf5 -y install cosmic-applets cosmic-bg cosmic-comp cosmic-idle cosmic-launcher cosmic-notifications cosmics-osd cosmic-panel cosmic-workspaces cosmic-icon-theme cosmic-settings-daemon xdg-desktop-portal-cosmic xdg-desktop-portal-cosmic
+dnf5 -y install cosmic-applets cosmic-bg cosmic-comp cosmic-idle cosmic-launcher cosmic-notifications cosmic-osd cosmic-panel cosmic-workspaces cosmic-icon-theme cosmic-settings-daemon xdg-desktop-portal-cosmic xdg-desktop-portal-cosmic
 
 # Install Global Configuration for COSMIC
 cp -r /ctx/system-files/* / 
