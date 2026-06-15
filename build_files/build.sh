@@ -1,24 +1,27 @@
 #!/bin/bash
 
+
+# KDE Plasma Removal Script & Build script for Bazzite-Minimal - Created by tj5miniop
 set -ouex pipefail
 
-### Install packages
+# Start by removing KDE plasma Desktop
+echo "BUILD STAGE 1 -- Removing KDE Plasma Desktop..."
+dnf5 -y groupremove "KDE Plasma Desktop"
 
-# Packages can be installed from any enabled yum repo on the image.
-# RPMfusion repos are available by default in ublue main images
-# List of rpmfusion packages can be found here:
-# https://mirrors.rpmfusion.org/mirrorlist?path=free/fedora/updates/43/x86_64/repoview/index.html&protocol=https&redirect=1
+echo "BUILD STAGE -- Removing KDE-related packages and dependencies..."
+dnf5 -y remove kf5-* kf6-* plasma-* plasma-login-manager breeze-* --skip-unavailable --allow-erasing
+dnf5 -y autoremove
 
-# this installs a package from fedora repos
-dnf5 install -y tmux 
+# Clean up configuration files
+echo "--> Cleaning up global KDE configurations..."
+rm -rf /usr/share/KDE/
 
-# Use a COPR Example:
-#
-# dnf5 -y copr enable ublue-os/staging
-# dnf5 -y install package
-# Disable COPRs so they don't end up enabled on the final image:
-# dnf5 -y copr disable ublue-os/staging
+# Install Network Manager (just in case KDE uninstallation has wiped it)
+dnf5 -y install NetworkManager
 
-#### Example for enabling a System Unit File
+# install minimal COSMIC Desktop environment
+echo "BUILD STAGE 3 -- Desktop Configuration..."
+dnf5 -y install cosmic-applets cosmic-bg cosmic-comp cosmic-idle cosmic-launcher cosmic-notifications cosmics-osd cosmic-panel cosmic-workspaces cosmic-icon-theme cosmic-settings-daemon xdg-desktop-portal-cosmic xdg-desktop-portal-cosmic
 
-systemctl enable podman.socket
+# Install Global Configuration for COSMIC
+cp -r /ctx/system-files/* / 
