@@ -24,12 +24,14 @@ dnf5 -y install cosmic-session cosmic-applets cosmic-bg cosmic-comp cosmic-idle 
 cosmic-notifications cosmic-osd cosmic-panel cosmic-workspaces cosmic-icon-theme \
 cosmic-settings-daemon xdg-desktop-portal-cosmic cosmic-initial-setup
 
-# Install Global Configuration for COSMIC
-cp -r /ctx/system-files/* /
-
 # enable LY 
 dnf5 -y install ly
 systemctl enable ly@tty1.service
+
+# Copy Files from Repo to Root ("/")
+# Includes COSMIC, wallpapers, os-release, hostname etc
+cp -r /ctx/system-files/* /
+
 
 # Remove and install applications, custom configuration
 dnf5 -y remove lutris krfb waydroid
@@ -37,15 +39,8 @@ dnf5 -y remove lutris krfb waydroid
 # Install Extra Stuff
 dnf5 -y copr enable faugus/faugus-launcher
 dnf5 -y install faugus-launcher
-# Librewolf Browser
-dnf5 -y install dnf-plugins-core
-#add the repo
-dnf config-manager addrepo --from-repofile=https://repo.librewolf.net/librewolf.repo
-# install the package
-dnf -y install librewolf
 
 # Cleanup section
 # DNF Cleanup
 dnf5 -y clean all
 echo 'Done Building!'
-
